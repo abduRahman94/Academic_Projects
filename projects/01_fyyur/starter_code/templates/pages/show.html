@@ -6,10 +6,20 @@
         <h1>Fyyur Search!</h1>
     </div>
     <p class="lead"> Show Search </p>
-
+    <h3>Number of search results for "{{ search_term }}": {{ results|count }}</h3>
     <ul class="nav nav-pills">
-        <li class="active"><a>Shows</a></li>
+    <li class="active"><a>Shows</a></li>
     </ul>
+        {% for res in results%}
+            <div>
+                <br>
+                <code>Artist Name: {{res.artist_name}}</code><br>
+                <code>Venue Name: {{res.venue_name}}</code><br>
+                <code>Start Time: {{res.start_time}}</code><br>
+                <code>End Time: {{res.end_time}}</code><br><br>
+            </div>
+        {% endfor %}
+    
 
 {#    Todo implement show search frontend #}
 
