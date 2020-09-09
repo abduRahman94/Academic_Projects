@@ -70,14 +70,26 @@ REVIEW_COMMENT
 ```
 This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code. 
 
-Endpoints
-GET '/categories'
-GET ...
-POST ...
-DELETE ...
+DOCUMENTATION
+-------------
 
-GET '/categories'
-- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
+This is an API that powers a Trivia game. It returns resources such as fromatted categories and questions for the frontend to handle the quizze game logic.
+
++ Base URL: The base url of the API Server is http://localhost:5000
+It is the local machine's IP Address. That is because the API is not hosted yet on a server available through the Internet.
+
++ Autentication: This application doesn't use authentication process.
+
++ Endpoints:
+
+CATEGORIES
+----------
+
+GET '/api/categories'
+GET '/api/categories/<int:id>/questions
+
+GET '/api/categories'
+- Result: Fetches a dictionary of categories in which the keys are the ids and the values are the corresponding strings of the categories
 - Request Arguments: None
 - Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
 {'1' : "Science",
@@ -86,6 +98,107 @@ GET '/categories'
 '4' : "History",
 '5' : "Entertainment",
 '6' : "Sports"}
+
+QUESTIONS
+---------
+
+GET '/api/questions'
+DELETE '/api/questions/<int:id>'
+POST '/api/questions'
+POST '/api/questions/search'
+POST '/api/quizzes'
+
+GET '/api/questions'
+- Result: Fetches a dictionary of questions in which the keys are the ids and the values are the questions strings
+- Request Arguments: None
+- Returns: An object composed of all categories, the status message of the response, the total number of questions, the questions objects composed of keys question, answer, category, difficulty and their corresponding values. 
+
+{
+    "categories": {
+        "1": "web",
+        "2": "football",
+        "3": "animals"
+    },
+    "current_category": null,
+    "questions": [
+        {
+            "answer": "1990",
+            "category": "web",
+            "difficulty": 3,
+            "id": 1,
+            "question": "When was http the foundation of the internet?"
+        },
+        {
+            "answer": "Ronaldinho",
+            "category": "football",
+            "difficulty": 3,
+            "id": 2,
+            "question": "Who the most famous football player?"
+        },
+        {
+            "answer": "Cheeta",
+            "category": "animals",
+            "difficulty": 2,
+            "id": 3,
+            "question": "Which animal is the fastest of the world"
+        }
+    ],
+    "success": true,
+    "total_questions": 3
+}
+
+DELETE '/api/questions/<int:id>'
+- Result: Deletes a specific question with its id given as parameter in the path
+- Request Arguments: Question id
+- Returns: The status message of the deletion operation and the id of the deleted question
+
+{
+    "question_id": 2,
+    "success": true
+}
+
+POST '/api/questions'
+- Result: Creates a question with a question string, the answer of the question, the category of the question and the difficulty of the question
+- Request argument: a json object with keys question, answer, category, difficulty and the corresponding values.
+- Returns: The status message of the response and the id of created question
+
+{
+    "question_id": 8,
+    "success": true
+}
+
+POST '/api/questions/search'
+- Result: Fetches the questions in which a search term is included in questions strings
+- Request argument: a json object with search term key and corresponding value
+- Returns: The status message of the response and the formatted questions corresponding to the search term
+
+{
+    "questions": {
+            "answer": "Cheeta",
+            "category": "animals",
+            "difficulty": 2,
+            "id": 3,
+            "question": "Which animal is the fastest of the world"
+        },
+    "success": true
+}
+
+POST '/api/quizzes'
+- Result: Takes a category and previous question parameters 
+  and returns a random questions within the given category that is not one of the previous questions
+- Request argument: The category object of the questions the display with keys id, category and corresponding values and the list of previous displayed questions
+- Returns: A question object with keys question string, answer, category, difficulty and corresponding values
+
+{
+    'question': {
+            "answer": "1990",
+            "category": "web",
+            "difficulty": 3,
+            "id": 1,
+            "question": "When was http the foundation of the internet?"
+        }
+}
+
 
 ```
 
